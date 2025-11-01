@@ -59,7 +59,7 @@ jobs:
         uses: aws-actions/configure-aws-credentials@v2
         with:
           aws-region: sa-east-1
-          role-to-asume: arn:aws:iam::476691586756:role/RoleforCDBoletas
+          role-to-assume: arn:aws:iam::476691586756:role/RoleforCDBoletas
 
       - name: Install dependencies
         run: npm install
@@ -68,4 +68,4 @@ jobs:
         run: npm install -g serverless@3
 
       - name: Deploy service
-        run: npm serverless deploy
+        run: npx serverless deploy
