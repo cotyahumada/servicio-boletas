@@ -1,0 +1,34 @@
+service: servicio-boletas
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  region: sa-east-1
+  profile: servicio-boletas
+  environment:
+    BOLETAS_BUCKET: bucket-servicio-boletas-arquisisg15
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action:
+            - s3:PutObject
+            - s3:GetObject
+            - s3:HeadObject
+          Resource:
+            - arn:aws:s3:::bucket-servicio-boletas-arquisisg15/*
+
+functions:
+  generarBoleta:
+    handler: handler.generarBoleta
+    events:
+      - httpApi:
+          path: /boletas
+          method: post
+  obtenerUrl:
+    handler: handler.obtenerUrl
+    events:
+      - httpApi:
+          path: /boletas/obtener
+          method: get
